@@ -17,9 +17,9 @@ public class RemoteManager {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        PasswordPrompt passwordInput = new PasswordPrompt();
-        passwordInput.setSize(403, 300);
-        passwordInput.setVisible(true);
-        
+        //PasswordPrompt passwordInput = new PasswordPrompt();
+        //passwordInput.setSize(403, 300);
+        //passwordInput.setVisible(true);
+        SSH.execute("service iptables stop");
     }
 }

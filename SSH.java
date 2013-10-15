@@ -34,13 +34,18 @@ public class SSH {
     //This method will be called from the gui to execute commands and control the server.
     public static String execute(String command){
         
-            
+            //Queries the data class for login credentials. The data class directly queries
+            //A local embedded database for the information. 
+            String username = data.getUser();
+            String hostname = data.getHost();
+            String password = data.getPass();
+            int port = data.getPort();
        try{
              
             java.util.Properties config = new java.util.Properties(); 
             config.put("StrictHostKeyChecking", "no");
             JSch jsch = new JSch();
-            Session session=jsch.getSession(username, hostname, 22);
+            Session session=jsch.getSession(username, hostname, port);
             session.setPassword(password);
             session.setConfig(config);
             session.connect();
