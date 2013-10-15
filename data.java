@@ -17,10 +17,10 @@ public class data{
     
     //JDBC Driver and database url
     static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
-    static final String DB_URL = "jdbc:derby:test1; create = true";
+    static final String DB_URL = "jdbc:derby:C:\\Users\\CowherRM\\.netbeans-derby\\test3";
     
-    static final String USER = "APP";
-    static final String PASS = "test1";
+    static final String USER = "test3";
+    static final String PASS = "test3";
     
     public static String getHost(){
         Connection conn;
@@ -33,6 +33,7 @@ public class data{
             //Opening a connection
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             
+            
             //Execute query
             stmt = conn.createStatement();
             String sql;
@@ -44,7 +45,6 @@ public class data{
             
             while(rs.next()){    
             hostname = rs.getString("HOSTNAME");
-            System.out.printf("Hostname is %s inside the try statement\n", hostname);
             }
             
             //Close connection and clean up the environment
@@ -60,14 +60,16 @@ public class data{
     }   catch (ClassNotFoundException ex) {
             Logger.getLogger(data.class.getName()).log(Level.SEVERE, null, ex);
         }
-    System.out.printf("Hostname = %s", hostname);
+    System.out.printf("Hostname = %s\n", hostname);
     return(hostname);
     
 }
     
     public static String getUser(){
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        conn = null;
+        Statement stmt;
+        stmt = null;
         String username = null;
         try{
             //Register the JDBC driver
@@ -81,9 +83,9 @@ public class data{
             String sql;
             sql = "SELECT USERNAME FROM SERVERS WHERE ID = 1";
             try (ResultSet rs = stmt.executeQuery(sql)) {
-                //while(rs.next()){    
+                while(rs.next()){    
                 username = rs.getString("USERNAME");
-                //}
+                }
             }
             stmt.close();
             conn.close();
@@ -93,7 +95,7 @@ public class data{
     }
         catch(ClassNotFoundException | SQLException e){
         }
-    System.out.printf("Username = %s", username);
+    System.out.printf("Username = %s\n", username);
     return(username);
     
 }
@@ -114,9 +116,9 @@ public class data{
             String sql;
             sql = "SELECT PASSWORD FROM SERVERS WHERE ID = 1";
             try (ResultSet rs = stmt.executeQuery(sql)) {
-                //while(rs.next()){    
+                while(rs.next()){    
                 password = rs.getString("PASSWORD");
-                //}
+                }
             }
             stmt.close();
             conn.close();
@@ -126,7 +128,7 @@ public class data{
     }
         catch(ClassNotFoundException | SQLException e){
         }
-    System.out.printf("Username = %s", password);
+    System.out.printf("Password = %s\n", password);
     return(password);
     
 }
@@ -147,9 +149,9 @@ public class data{
             String sql;
             sql = "SELECT PORT FROM SERVERS WHERE ID = 1";
             try (ResultSet rs = stmt.executeQuery(sql)) {
-                //while(rs.next()){    
+                while(rs.next()){    
                 port = rs.getInt("PORT");
-                //}
+                }
             }
             stmt.close();
             conn.close();
@@ -159,7 +161,7 @@ public class data{
     }
         catch(ClassNotFoundException | SQLException e){
         }
-    System.out.printf("Port = %d", port);
+    System.out.printf("Port = %d\n", port);
     return(port);
     
 }
