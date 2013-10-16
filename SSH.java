@@ -4,14 +4,18 @@
  */
 package remotemanager;
 import com.jcraft.jsch.*;
+import java.io.IOException;
 import java.io.InputStream;
+import java.sql.SQLException;
+import java.util.logging.Level;
 
 /**
  *
  * @author CowherRM
  */
 public class SSH {
-    
+ 
+    /*
     public String hostname(String x){
             String hostname = x;
             return hostname;
@@ -28,7 +32,8 @@ public class SSH {
             int port = x;
             return port;
     }
-
+*/
+    
 
     
     //This method will be called from the gui to execute commands and control the server.
@@ -74,9 +79,11 @@ public class SSH {
             channel.disconnect();
             session.disconnect();
             System.out.println("DONE");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(SSH.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSchException ex) {
+            java.util.logging.Logger.getLogger(SSH.class.getName()).log(Level.SEVERE, null, ex);
+        } 
         
         
         return null;
@@ -99,14 +106,17 @@ public class SSH {
             session.setPassword(password);
             session.setConfig(config);
             session.connect();
-            ConnectedSuccessfully successMessage = new ConnectedSuccessfully();
+            /*ConnectedSuccessfully successMessage = new ConnectedSuccessfully();
             successMessage.setVisible(true);
+            successMessage.dispose();
+            */
             
+            General.infoBox("Connected Successfully!", "Success");
             
             session.disconnect();
             System.out.println("DONE");
         }catch(Exception e){
-            e.printStackTrace();
+            
         }
         
         

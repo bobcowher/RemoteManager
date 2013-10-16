@@ -165,7 +165,144 @@ public class data{
     return(port);
     
 }
+        
+        public static void setHost(String hostname, int ID){
+        Connection conn;
+        Statement stmt;
+        try{
+            //Register the JDBC driver
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            
+            //Opening a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+            
+            //Execute query
+            stmt = conn.createStatement();
+            String sql;
+            sql = "UPDATE SERVERS SET HOSTNAME='" + hostname + "' WHERE ID =" + Integer.toString(ID);
+            stmt.executeUpdate(sql);
+            
+                      
+            //Close connection and clean up the environment
+            stmt.close();
+            conn.close();
+            
+           
+        
+    }
+       catch(SQLException se){
+           se.printStackTrace();
+    }   catch (ClassNotFoundException ex) {
+            Logger.getLogger(data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
     
+}
+        
+        
+        public static void setUser(String username, int ID){
+        Connection conn;
+        Statement stmt;
+        try{
+            //Register the JDBC driver
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            
+            //Opening a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+            
+            //Execute query
+            stmt = conn.createStatement();
+            String sql;
+            sql = "UPDATE SERVERS SET USERNAME='" + username + "' WHERE ID =" + Integer.toString(ID);
+            stmt.executeUpdate(sql);
+            
+                      
+            //Close connection and clean up the environment
+            
+            stmt.close();
+            conn.close();
+            
+           
+        
+    }
+       catch(SQLException se){
+           se.printStackTrace();
+    }   catch (ClassNotFoundException ex) {
+            Logger.getLogger(data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    
+}
+     public static void setPass(String password, int ID){
+        Connection conn;
+        Statement stmt;
+        try{
+            //Register the JDBC driver
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            
+            //Opening a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+            
+            //Execute query
+            stmt = conn.createStatement();
+            String sql;
+            sql = "UPDATE SERVERS SET PASSWORD='" + password + "' WHERE ID =" + Integer.toString(ID);
+            stmt.executeUpdate(sql);
+            
+                      
+            //Close connection and clean up the environment
+            stmt.close();
+            conn.close();
+            
+           
+        
+    }
+       catch(SQLException se){
+           se.printStackTrace();
+    }   catch (ClassNotFoundException ex) {
+            Logger.getLogger(data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    
+}   
+     
+public static void setPort(int port, int ID){
+        Connection conn;
+        Statement stmt;
+        try{
+            //Register the JDBC driver
+            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+            
+            //Opening a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            
+            
+            //Execute query
+            stmt = conn.createStatement();
+            String sql;
+            sql = "UPDATE SERVERS SET PORT=" + Integer.toString(port) + " WHERE ID =" + Integer.toString(ID);
+            stmt.executeUpdate(sql);
+            
+                      
+            //Close connection and clean up the environment
+            stmt.close();
+            conn.close();
+            
+           
+        
+    }
+       catch(SQLException se){
+           se.printStackTrace();
+    }   catch (ClassNotFoundException ex) {
+            Logger.getLogger(data.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    
+}   
+        
 }
 
 
