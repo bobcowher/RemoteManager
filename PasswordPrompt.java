@@ -4,6 +4,8 @@
  */
 package remotemanager;
 
+import java.awt.Toolkit;
+
 /**
  *
  * @author CowherRM
@@ -15,6 +17,7 @@ public class PasswordPrompt extends javax.swing.JFrame {
      */
     public PasswordPrompt() {
         initComponents();
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("oakwood_logo.png")));
     }
 
     /**
@@ -36,11 +39,11 @@ public class PasswordPrompt extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -76,6 +79,7 @@ public class PasswordPrompt extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Remote Manager ");
 
         jLabel1.setText("Hostname");
 
@@ -90,6 +94,8 @@ public class PasswordPrompt extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
+
+        jTextField4.setText("22");
 
         jButton1.setText("Continue");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -138,8 +144,11 @@ public class PasswordPrompt extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2)
                                 .addGap(0, 155, Short.MAX_VALUE))
-                            .addComponent(jTextField3)
-                            .addComponent(jTextField4)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPasswordField1)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton3)))
@@ -157,9 +166,9 @@ public class PasswordPrompt extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -204,19 +213,24 @@ public class PasswordPrompt extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        String host=jTextField1.getText();
        String user=jTextField2.getText();
-       String password=jTextField3.getText();
+       char[] password=jPasswordField1.getPassword();
+       String pass = new String(password);
        int port=Integer.parseInt(jTextField4.getText());
        
-       SSH.testConnection(host, user, password, port);
+       SSH.testConnection(host, user, pass, port);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        data.setHost(jTextField1.getText(), 1);
        data.setUser(jTextField2.getText(), 1);
-       data.setPass(jTextField3.getText(), 1);
+       char[] password=jPasswordField1.getPassword();
+       String pass = new String(password);
+       data.setPass(pass, 1);
        data.setPort(Integer.parseInt(jTextField4.getText()), 1);
        
        ControlPanel panel = new ControlPanel();
+       panel.setLocationRelativeTo(null);
+           
        panel.setVisible(true);
        
        super.dispose();
@@ -268,9 +282,9 @@ public class PasswordPrompt extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

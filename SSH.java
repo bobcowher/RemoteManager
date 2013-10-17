@@ -4,9 +4,11 @@
  */
 package remotemanager;
 import com.jcraft.jsch.*;
+import java.awt.List;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 /**
@@ -14,6 +16,7 @@ import java.util.logging.Level;
  * @author CowherRM
  */
 public class SSH {
+    private static InputStream String;
  
     /*
     public String hostname(String x){
@@ -37,7 +40,7 @@ public class SSH {
 
     
     //This method will be called from the gui to execute commands and control the server.
-    public static String execute(String command){
+    public static String rexecute(String command, String success, String failure){
         
             //Queries the data class for login credentials. The data class directly queries
             //A local embedded database for the information. 
@@ -59,22 +62,42 @@ public class SSH {
             Channel channel=session.openChannel("exec");
             ((ChannelExec)channel).setCommand(command);
             channel.setInputStream(null);
+            
             ((ChannelExec)channel).setErrStream(System.err);
              
             InputStream in=channel.getInputStream();
             channel.connect();
             byte[] tmp=new byte[1024];
             while(true){
+                
+              StringBuilder outputVar = new StringBuilder();                
+              
+                           
               while(in.available()>0){
                 int i=in.read(tmp, 0, 1024);
                 if(i<0)break;
                 System.out.print(new String(tmp, 0, i));
-              }
+               // outputVar.append(new String(tmp, 0, i));
+               // outputVar.append("\n");
+              }         
+             //String outputVar2 = outputVar.toString();
+             // General.shellOut(outputVar.toString());
+              
+              
               if(channel.isClosed()){
                 System.out.println("exit-status: "+channel.getExitStatus());
+                
+                if(channel.getExitStatus() == 0){
+                    General.infoBox(success, "Success!");
+                }
+                else{
+                    General.infoBox(failure, "Failure");
+                }
+                
                 break;
               }
               try{Thread.sleep(1000);}catch(Exception ee){}
+              
             }
             channel.disconnect();
             session.disconnect();
@@ -116,7 +139,7 @@ public class SSH {
             session.disconnect();
             System.out.println("DONE");
         }catch(Exception e){
-            
+            General.infoBox("Failed to Connect", "Connection Failure");
         }
         
         
